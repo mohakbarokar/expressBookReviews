@@ -4,7 +4,6 @@ let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
-
 public_users.post("/register", (req, res) => {
   const username = req.query.username;
   const password = req.query.password;
@@ -22,7 +21,7 @@ public_users.post("/register", (req, res) => {
 
 // Get the book list available in the shop
 public_users.get('/', function (req, res) {
-  return res.status(300).json(books);
+  return res.status(200).json(books);
 });
 
 // Get book details based on ISBN
@@ -31,7 +30,7 @@ public_users.get('/isbn/:isbn', function (req, res) {
   const isbn = req.params.isbn;
   let filtered_books = books.filter((book) => book.isbn === isbn);
   if (filtered_books.length > 0) {
-    return res.status(300).json(filtered_books);
+    return res.status(200).json(filtered_books);
   } else {
     return res.status(404).json({ "status": 404, "message": "Book not found" });
   }
@@ -42,7 +41,7 @@ public_users.get('/author/:author', function (req, res) {
   const authorName = req.params.author;
   let filtered_books = books.filter((book) => book.author === authorName);
   if (filtered_books.length > 0) {
-    return res.status(300).json(filtered_books);
+    return res.status(200).json(filtered_books);
   } else {
     return res.status(404).json({ "status": 404, "message": "Book not found" });
   }
@@ -53,7 +52,7 @@ public_users.get('/title/:title', function (req, res) {
   const title = req.params.title;
   let filtered_books = books.filter((book) => book.title === title);
   if (filtered_books.length > 0) {
-    return res.status(300).json(filtered_books);
+    return res.status(200).json(filtered_books);
   } else {
     return res.status(404).json({ "status": 404, "message": "Book not found" });
   }
@@ -69,7 +68,7 @@ public_users.get('/review/:isbn', function (req, res) {
       console.log(book.review);
       filtered_reviews.push({ "isbn": book.isbn, "title": book.title, "reviews": book.reviews });
     });
-    return res.status(300).json(filtered_reviews);
+    return res.status(200).json(filtered_reviews);
   } else {
     return res.status(404).json({ "status": 404, "message": "Book not found for isbn " + isbn });
   }
